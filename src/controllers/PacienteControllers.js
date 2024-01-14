@@ -3,7 +3,14 @@ const Plano = require("../models/Plano");
 const PatientController = {
   async getAllPatients(req, res) {
     try {
-      const patientes = await Patients.findAll();
+      const patientes = await Patients.findAll({
+        include: [
+          {
+            model: Plano,
+            as: "plano",
+          },
+        ],
+      });
       res.status(200).json(patientes);
     } catch (error) {
       res.status(500).send(error.message);
