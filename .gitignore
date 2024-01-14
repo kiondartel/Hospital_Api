@@ -1,0 +1,45 @@
+# Dependências
+node_modules/
+
+# Arquivos de ambiente
+.env
+
+# Arquivos de configuração com informações sensíveis
+config.json
+
+# Migrations e Seeders
+migrations/
+seeders/
+
+# Logs
+logs
+*.log
+
+# Arquivos de runtime
+pids
+*.pid
+*.seed
+
+# Diretórios de compilação e diretórios temporários
+build/
+temp/
+
+# Arquivos de lock de terceiros
+package-lock.json
+yarn.lock
+
+# Arquivos gerados pelo sistema operacional
+.DS_Store
+Thumbs.db
+
+# Arquivos de configuração do editor
+.idea/
+*.sublime-workspace
+
+# Arquivos de compilação
+*.o
+*.pyc
+*.so
+
+# Pasta de build do npm
+npm-debug.log
