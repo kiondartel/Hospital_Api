@@ -27,6 +27,7 @@ const PatientController = {
         email,
         genero,
         codigoPlano,
+        descricaoPaciente,
       } = req.body;
 
       if (!nome) {
@@ -41,6 +42,7 @@ const PatientController = {
         email,
         genero,
         codigoPlano,
+        descricaoPaciente,
       });
 
       res.status(201).json(newPatient);

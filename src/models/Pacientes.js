@@ -27,6 +27,13 @@ const Paciente = sequelize.define(
     genero: {
       type: Sequelize.STRING,
     },
+    genero: {
+      type: Sequelize.STRING,
+    },
+    descricaoPaciente: {
+      type: Sequelize.STRING,
+      allowNull: true,
+    },
     codigoPlano: {
       type: Sequelize.INTEGER,
       references: {
