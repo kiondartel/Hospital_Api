@@ -31,7 +31,7 @@ const Paciente = sequelize.define(
       type: Sequelize.STRING,
     },
     descricaoPaciente: {
-      type: Sequelize.STRING,
+      type: Sequelize.STRING(1000),
       allowNull: true,
     },
     codigoPlano: {
