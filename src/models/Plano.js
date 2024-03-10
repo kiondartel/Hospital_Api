@@ -20,6 +20,9 @@ const Plano = sequelize.define(
     valor: {
       type: Sequelize.INTEGER,
     },
+    procedimentos: {
+      type: Sequelize.TEXT,
+    },
     ativo: {
       type: Sequelize.BOOLEAN,
     },
