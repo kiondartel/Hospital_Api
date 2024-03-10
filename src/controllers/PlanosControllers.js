@@ -14,13 +14,18 @@ const PlanosController = {
 
   async createPlane(req, res) {
     try {
-      const { nome, valor, ativo } = req.body; // Extrai os dados do corpo da requisição
+      const { nome, valor, ativo, procedimentos } = req.body; // Extrai os dados do corpo da requisição
       // Verifica se os campos obrigatórios estão presentes
       if (!nome) {
         return res.status(400).send("Nome é obrigatório");
       }
       // Cria um novo plano no banco de dados
-      const novoPlano = await Plano.create({ nome, valor, ativo });
+      const novoPlano = await Plano.create({
+        nome,
+        valor,
+        ativo,
+        procedimentos,
+      });
       // Retorna o plano criado
       res.status(201).json(novoPlano);
     } catch (error) {
@@ -39,6 +44,30 @@ const PlanosController = {
       await plano.destroy();
 
       res.send(`Plano '${nome}' excluído com sucesso.`);
+    } catch (error) {
+      res.status(500).send(error.message);
+    }
+  },
+
+  async updatePlano(req, res) {
+    try {
+      const codigo = req.params.codigo;
+      const { nome, valor, ativo, procedimentos } = req.body;
+
+      const plano = await Plano.findByPk(codigo);
+
+      if (!plano) {
+        return res.status(404).send("Plano não encontrado");
+      }
+
+      plano.nome = nome || plano.nome;
+      plano.valor = valor || plano.valor;
+      plano.ativo = ativo || plano.ativo;
+      plano.procedimentos = procedimentos || plano.procedimentos;
+
+      await plano.save();
+
+      res.status(200).json(plano);
     } catch (error) {
       res.status(500).send(error.message);
     }
