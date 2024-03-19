@@ -1,17 +1,10 @@
-const Patients = require("../models/Pacientes");
-const Plano = require("../models/Plano");
+const PacienteService = require("../service/pacienteService");
+
 const PatientController = {
   async getAllPatients(req, res) {
     try {
-      const patientes = await Patients.findAll({
-        include: [
-          {
-            model: Plano,
-            as: "plano",
-          },
-        ],
-      });
-      res.status(200).json(patientes);
+      const patients = await PacienteService.getAllPatients();
+      res.status(200).json(patients);
     } catch (error) {
       res.status(500).send(error.message);
     }
@@ -19,32 +12,7 @@ const PatientController = {
 
   async createPatient(req, res) {
     try {
-      const {
-        nome,
-        dataNascimento,
-        endereco,
-        telefone,
-        email,
-        genero,
-        codigoPlano,
-        descricaoPaciente,
-      } = req.body;
-
-      if (!nome) {
-        return res.status(400).send("Nome é obrigatório");
-      }
-
-      const newPatient = await Patients.create({
-        nome,
-        dataNascimento,
-        endereco,
-        telefone,
-        email,
-        genero,
-        codigoPlano,
-        descricaoPaciente,
-      });
-
+      const newPatient = await PacienteService.createPatient(req.body);
       res.status(201).json(newPatient);
     } catch (error) {
       res.status(500).send(error.message);
@@ -54,18 +22,17 @@ const PatientController = {
   async deletePatientByName(req, res) {
     try {
       const nome = req.params.nome;
+      const patient = await PacienteService.findPatientByName(nome);
 
-      const patient = await Patients.findOne({ where: { nome } });
       if (!patient) {
         return res.status(404).send("Paciente não encontrado");
       }
-      await patient.destroy();
 
+      await PacienteService.deletePatient(patient);
       res.send(`Paciente '${nome}' excluído com sucesso.`);
     } catch (error) {
       res.status(500).send(error.message);
     }
   },
 };
-
 module.exports = PatientController;
