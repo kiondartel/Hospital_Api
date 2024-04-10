@@ -1,5 +1,6 @@
 const Patients = require("../models/Pacientes");
 const Plano = require("../models/Plano");
+
 const PacienteService = {
   async getAllPatients() {
     return await Patients.findAll({
@@ -17,6 +18,10 @@ const PacienteService = {
 
   async deletePatient(patient) {
     await patient.destroy();
+  },
+
+  async findPatientByPlan(patient) {
+    return await Patients.findOne({ where: { nome: patient } });
   },
 };
 
