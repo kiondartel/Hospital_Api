@@ -34,5 +34,16 @@ const PatientController = {
       res.status(500).send(error.message);
     }
   },
+
+  async SearchPatientByPlan(req, res) {
+    const plan = req.query.plan;
+    try {
+      const patientPerPlan = await PacienteService.findPatientByPlan(plan);
+      res.status(200).json(patientPerPlan);
+    } catch (err) {
+      res.status(500).send(error.message);
+    }
+  },
 };
+
 module.exports = PatientController;
